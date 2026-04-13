@@ -1,0 +1,11 @@
+name: CI # Names the workflow "CI". This is what shows up in the Actions tab on GitHub.
+
+on: [push, pull_request] # Triggers. This workflow runs whenever you push a commit OR someone opens/updates a pull request. You could also write on: [push] to only trigger on pushes. 
+
+jobs:
+  test:
+    runs-on: ubuntu-lastest # A job is a unit of work that runs on a machine. You're saying: spin up a fresh Ubuntu machine (GitHub provides it for free) and run the job called test on it.
+    steps:
+      - uses: actions/checkout@4 # Step 1. uses means "run a pre-built action". actions/checkout is an official GitHub action that clones your repository onto that Ubuntu machine. Without this, the machine would be empty and have no access to your code.
+      - name: run # Step 2. run executes a shell command on that Ubuntu machine. It just runs python main.py, which prints "Hello world" and exits. If the command exits with an error (non-zero exit code), the step fails and GitHub marks the workflow as failed.
+        run: python main.py
